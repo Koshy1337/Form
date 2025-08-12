@@ -1,34 +1,34 @@
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method Not Allowed" });
-  }
+document.getElementById("contactForm").addEventListener("submit", async function(e) {
+  e.preventDefault(); // Prevent form from reloading the page
 
-  const { name, email, message } = req.body;
-
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: "Missing required fields" });
-  }
-
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-  const botToken = process.env.TELEGRAM_BOT_TOKEN;
-
-  const text = `📩 New Form Submission:\n\n👤 Name: ${name}\n📧 Email: ${email}\n💬 Message: ${message}`;
-
-  const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+  const formData = {
+    name: this.name.value.trim(),
+    email: this.email.value.trim(),
+    message: this.message.value.trim()
+  };
 
   try {
-    const telegramRes = await fetch(telegramUrl, {
+    const response = await fetch("/api/sendToTelegram", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: chatId, text }),
+      body: JSON.stringify(formData),
     });
 
-    if (!telegramRes.ok) {
-      throw new Error(`Telegram API error: ${telegramRes.statusText}`);
+    let result = {};
+    try {
+      result = await response.json();
+    } catch {
+      alert("Server response was not valid JSON.");
+      return;
     }
 
-    res.status(200).json({ success: true });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    if (response.ok && result.success) {
+      alert("Message sent successfully!");
+      this.reset(); // Clear the form
+    } else {
+      alert("Error sending message: " + (result.error || "Unknown error"));
+    }
+  } catch (err) {
+    alert("Fetch error: " + err.message);
   }
-}
+});
