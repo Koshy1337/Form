@@ -1,0 +1,157 @@
+    /* =====================
+       Base Styles
+    ===================== */
+    body {
+      background-color: black;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #ddd;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding-bottom: 60px; /* space for fixed footer */
+    }
+
+    /* =====================
+       Header / Page Title
+    ===================== */
+    header {
+      padding: 40px 20px 20px;
+      text-align: center;
+      color: rgb(219, 185, 32); /* gold */
+      font-size: 2.8rem;
+      font-weight: bold;
+      user-select: none;
+    }
+
+    /* =====================
+       Contact Form Container
+    ===================== */
+    main.contact-container {
+      flex-grow: 1; /* fill vertical space */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* =====================
+       Form Styles
+    ===================== */
+    #contactForm {
+      background-color: black;
+      border: 2px solid rgb(219, 185, 32); /* gold border */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(219, 185, 32, 0.6); /* subtle gold glow */
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+      max-width: 500px;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    #contactForm h2 {
+      text-align: center;
+      color: rgb(219, 185, 32);
+      margin: 0 0 15px;
+      user-select: none;
+      font-size: 2rem;
+    }
+
+    .input-field {
+      background-color: #111;
+      border: 1px solid rgb(219, 185, 32);
+      color: #ddd;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      outline: none;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      resize: vertical; /* allow vertical resize on textarea */
+    }
+
+    .input-field::placeholder {
+      color: #bbb;
+    }
+
+    .input-field:focus {
+      box-shadow: 0 0 8px rgb(219, 185, 32);
+      border-color: rgb(219, 185, 32);
+      background-color: #222;
+      color: white;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      background-color: rgb(219, 185, 32);
+      border: none;
+      padding: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      color: black;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      align-self: center;
+      width: 50%;
+      user-select: none;
+    }
+
+    .submit-btn:hover,
+    .submit-btn:focus {
+      background-color: gold;
+    }
+
+    /* =====================
+       Animations
+    ===================== */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =====================
+       Footer
+    ===================== */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #000;
+      color: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      user-select: none;
+      box-shadow: 0 -2px 5px rgba(219, 185, 32, 0.5);
+      z-index: 9999;
+    }
+
+    /* =====================
+       Responsive
+    ===================== */
+    @media (max-width: 600px) {
+      #contactForm {
+        padding: 20px;
+        width: 100%;
+      }
+      .submit-btn {
+        font-size: 16px;
+        width: 100%;
+      }
+      header {
+        font-size: 2rem;
+        padding: 30px 15px 15px;
+      }
+    }
