@@ -4,8 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact - Alexander</title>
-  <link rel="stylesheet" href="styles.css">
-
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
@@ -23,6 +22,42 @@
   <footer>
     &copy; 2025 Alexander. All rights reserved.
   </footer>
-  <script src="main.js"></script>
+
+  <script>
+  document.getElementById("contactForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const formData = {
+      name: this.name.value.trim(),
+      email: this.email.value.trim(),
+      message: this.message.value.trim()
+    };
+
+    try {
+      const response = await fetch("/api/sendToTelegram", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      let result = {};
+      try {
+        result = await response.json();
+      } catch {
+        alert("Server response was not valid JSON.");
+        return;
+      }
+
+      if (response.ok && result.success) {
+        alert("Message sent successfully!");
+        this.reset();
+      } else {
+        alert("Error sending message: " + (result.error || "Unknown error"));
+      }
+    } catch (err) {
+      alert("Fetch error: " + err.message);
+    }
+  });
+  </script>
 </body>
 </html>
